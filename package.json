@@ -1,17 +1,17 @@
 {
-  "name": "rail-cli",
+  "name": "rakevet",
   "version": "0.1.0",
   "description": "A small CLI for browsing Israel Railways (rail.co.il): search routes, next departures, station lookup, platforms & crowding.",
   "type": "module",
   "bin": {
-    "rail": "src/cli.ts"
+    "rakevet": "src/cli.ts"
   },
   "engines": {
     "node": ">=22.6"
   },
   "scripts": {
-    "rail": "node src/cli.ts"
+    "rakevet": "node src/cli.ts"
   },
-  "keywords": ["israel-railways", "rail", "train", "cli", "rail.co.il"],
+  "keywords": ["israel-railways", "rakevet", "rail", "train", "cli", "rail.co.il"],
   "license": "MIT"
 }

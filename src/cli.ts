@@ -1,11 +1,11 @@
 #!/usr/bin/env -S node --no-warnings
-// rail — a small CLI for browsing Israel Railways (rail.co.il).
+// rakevet — a small CLI for browsing Israel Railways (rail.co.il).
 //
 // Usage:
-//   rail search <from> <to> [--date YYYY-MM-DD] [--time HH:MM] [-n N] [--json]
-//   rail next   <from> <to> [-n N] [--json]
-//   rail stations [query] [--json]
-//   rail refresh                 # force-refresh the cached station list
+//   rakevet search <from> <to> [--date YYYY-MM-DD] [--time HH:MM] [-n N] [--json]
+//   rakevet next   <from> <to> [-n N] [--json]
+//   rakevet stations [query] [--json]
+//   rakevet refresh                 # force-refresh the cached station list
 //
 // <from>/<to> accept a station id or a name in English or Hebrew.
 
@@ -56,22 +56,22 @@ function nowHHMM(): string {
   return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-const USAGE = `rail — browse Israel Railways (rail.co.il)
+const USAGE = `rakevet — browse Israel Railways (rail.co.il)
 
 Commands:
   search <from> <to> [--date YYYY-MM-DD] [--time HH:MM] [-n N] [--json]
                                Search routes between two stations.
   next   <from> <to> [-n N] [--json]
                                Next departures from now (default 5).
-
-Options:
-  --lang en|he   Show station names and service messages in English or Hebrew.
   stations [query] [--json]    List or search stations (name or id, EN/HE).
   refresh                      Force-refresh the cached station list.
 
+Options:
+  --lang en|he   Show station names and service messages in English or Hebrew.
+
 <from>/<to> accept a station id or a name in English or Hebrew, e.g.
-  rail next "tel aviv savidor" jerusalem
-  rail search 3700 680 --date 2026-07-01 --time 08:30`;
+  rakevet next "tel aviv savidor" jerusalem
+  rakevet search 3700 680 --date 2026-07-01 --time 08:30`;
 
 function stationMap(stations: StationInfo[]): Map<number, StationInfo> {
   return new Map(stations.map((s) => [s.id, s]));
@@ -80,7 +80,7 @@ function stationMap(stations: StationInfo[]): Map<number, StationInfo> {
 async function cmdSearch(f: Flags, next: boolean): Promise<void> {
   const [fromTok, toTok] = f.positionals;
   if (!fromTok || !toTok) {
-    console.error(`Usage: rail ${next ? "next" : "search"} <from> <to> [...]`);
+    console.error(`Usage: rakevet ${next ? "next" : "search"} <from> <to> [...]`);
     process.exit(1);
   }
   const stations = await loadStations();

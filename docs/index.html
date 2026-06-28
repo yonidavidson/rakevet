@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>rail-cli — browse Israel Railways from your terminal</title>
+<title>rakevet — browse Israel Railways from your terminal</title>
 <meta name="description" content="A small, zero-dependency CLI for browsing Israel Railways (rail.co.il): search routes, next departures, station lookup, platforms and crowding." />
 <style>
   :root {
@@ -89,10 +89,10 @@
 
 <header class="hero">
   <div class="train">🚆</div>
-  <h1>rail-cli</h1>
+  <h1>rakevet</h1>
   <p class="tag">Browse Israel Railways (<a href="https://www.rail.co.il/?lan=he">rail.co.il</a>) from your terminal — search routes, see the next departures, look up stations, platforms and crowding. Zero dependencies.</p>
   <div class="badges">
-    <a class="btn primary" href="https://github.com/yonidavidson/rail-cli">View on GitHub</a>
+    <a class="btn primary" href="https://github.com/yonidavidson/rakevet">View on GitHub</a>
     <a class="btn" href="#install">Install</a>
     <a class="btn" href="#usage">Usage</a>
   </div>
@@ -103,18 +103,18 @@
   <section id="install">
     <h2><span class="num">1.</span>Install</h2>
     <p class="muted">Requires <strong>Node.js ≥ 22.6</strong>. The CLI is TypeScript run natively — no build step, no <code>npm install</code>.</p>
-<pre><code><span class="c-cmd">git</span> clone https://github.com/yonidavidson/rail-cli.git
-<span class="c-cmd">cd</span> rail-cli
-<span class="c-cmd">npm</span> link   <span class="c-cmt"># makes the `rail` command available everywhere</span></code></pre>
+<pre><code><span class="c-cmd">git</span> clone https://github.com/yonidavidson/rakevet.git
+<span class="c-cmd">cd</span> rakevet
+<span class="c-cmd">npm</span> link   <span class="c-cmt"># makes the `rakevet` command available everywhere</span></code></pre>
     <p class="muted">Prefer not to link? Run it in place with <code>node src/cli.ts …</code>.</p>
   </section>
 
   <section id="usage">
     <h2><span class="num">2.</span>Usage</h2>
-<pre><code><span class="c-cmd">rail</span> search   &lt;from&gt; &lt;to&gt; <span class="c-flag">[--date YYYY-MM-DD] [--time HH:MM] [-n N] [--lang en|he] [--json]</span>
-<span class="c-cmd">rail</span> next     &lt;from&gt; &lt;to&gt; <span class="c-flag">[-n N] [--lang en|he] [--json]</span>
-<span class="c-cmd">rail</span> stations [query]      <span class="c-flag">[--json]</span>
-<span class="c-cmd">rail</span> refresh</code></pre>
+<pre><code><span class="c-cmd">rakevet</span> search   &lt;from&gt; &lt;to&gt; <span class="c-flag">[--date YYYY-MM-DD] [--time HH:MM] [-n N] [--lang en|he] [--json]</span>
+<span class="c-cmd">rakevet</span> next     &lt;from&gt; &lt;to&gt; <span class="c-flag">[-n N] [--lang en|he] [--json]</span>
+<span class="c-cmd">rakevet</span> stations [query]      <span class="c-flag">[--json]</span>
+<span class="c-cmd">rakevet</span> refresh</code></pre>
     <p><code>&lt;from&gt;</code> and <code>&lt;to&gt;</code> accept a <strong>station id</strong> or a <strong>name in English or Hebrew</strong>.</p>
 
     <div class="grid">
@@ -128,17 +128,17 @@
   <section id="examples">
     <h2><span class="num">3.</span>Examples</h2>
 <pre><code><span class="c-cmt"># Next trains from now</span>
-<span class="c-cmd">rail</span> next <span class="c-flag">"tel aviv savidor"</span> <span class="c-flag">"jerusalem navon"</span>
+<span class="c-cmd">rakevet</span> next <span class="c-flag">"tel aviv savidor"</span> <span class="c-flag">"jerusalem navon"</span>
 
 <span class="c-cmt"># A specific date and time, 5 results</span>
-<span class="c-cmd">rail</span> search 3700 680 <span class="c-flag">--date</span> 2026-07-01 <span class="c-flag">--time</span> 08:30 <span class="c-flag">-n</span> 5
+<span class="c-cmd">rakevet</span> search 3700 680 <span class="c-flag">--date</span> 2026-07-01 <span class="c-flag">--time</span> 08:30 <span class="c-flag">-n</span> 5
 
 <span class="c-cmt"># Find a station's id (English or Hebrew)</span>
-<span class="c-cmd">rail</span> stations jerusalem
-<span class="c-cmd">rail</span> stations <span class="c-flag">"באר שבע"</span>
+<span class="c-cmd">rakevet</span> stations jerusalem
+<span class="c-cmd">rakevet</span> stations <span class="c-flag">"באר שבע"</span>
 
 <span class="c-cmt"># Machine-readable output for scripting</span>
-<span class="c-cmd">rail</span> next nahariya <span class="c-flag">"beer sheva center"</span> <span class="c-flag">--json</span></code></pre>
+<span class="c-cmd">rakevet</span> next nahariya <span class="c-flag">"beer sheva center"</span> <span class="c-flag">--json</span></code></pre>
 
     <p class="muted">Example output:</p>
 <pre><code>Tel Aviv - Savidor Center → Jerusalem - Yitzhak Navon   2026-06-28 (from 13:27)
@@ -152,7 +152,7 @@
     <h2><span class="num">4.</span>Hebrew output</h2>
     <p>Pass <code>--lang he</code> to print station names, platforms and service messages in Hebrew. The default follows your locale (<code>LC_ALL</code> / <code>LC_MESSAGES</code> / <code>LANG</code>).</p>
     <div class="note">
-      <strong>Terminals without RTL support.</strong> Many terminals (e.g. Ghostty) don't reorder bidirectional text, so Hebrew would print mirrored. rail-cli renders Hebrew in <em>visual order</em> so it reads correctly on screen — the trade-off is that copying that Hebrew yields reversed characters. English output is always copy-safe.
+      <strong>Terminals without RTL support.</strong> Many terminals (e.g. Ghostty) don't reorder bidirectional text, so Hebrew would print mirrored. rakevet renders Hebrew in <em>visual order</em> so it reads correctly on screen — the trade-off is that copying that Hebrew yields reversed characters. English output is always copy-safe.
     </div>
   </section>
 
@@ -164,7 +164,7 @@
 </main>
 
 <footer>
-  <p>MIT licensed · <a href="https://github.com/yonidavidson/rail-cli">github.com/yonidavidson/rail-cli</a></p>
+  <p>MIT licensed · <a href="https://github.com/yonidavidson/rakevet">github.com/yonidavidson/rakevet</a></p>
 </footer>
 
 </body>

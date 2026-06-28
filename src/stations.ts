@@ -14,7 +14,7 @@ export interface StationInfo {
   handicap: boolean;
 }
 
-const CACHE_DIR = join(homedir(), ".rail-cli");
+const CACHE_DIR = join(homedir(), ".rakevet");
 const CACHE_FILE = join(CACHE_DIR, "stations.json");
 const CACHE_TTL_MS = 1000 * 60 * 60 * 24 * 30; // 30 days
 
@@ -97,7 +97,7 @@ export function resolveStation(stations: StationInfo[], token: string): StationI
   }
   const matches = searchStations(stations, token);
   if (matches.length === 0) {
-    throw new Error(`No station matching "${token}". Try: rail stations <query>`);
+    throw new Error(`No station matching "${token}". Try: rakevet stations <query>`);
   }
   // A single match, or an exact-name match, wins; otherwise list candidates.
   if (matches.length === 1 || score(matches[0], norm(token)) === 3) return matches[0];
