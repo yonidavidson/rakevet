@@ -5,14 +5,16 @@ import type { StationInfo } from "./stations.ts";
 
 export type Lang = "en" | "he";
 
-// Wrap any Hebrew run in a right-to-left isolate so it renders correctly
-// without flipping the surrounding left-to-right line structure (times,
-// arrows, platform numbers) in bidi-aware terminals.
-const RLI = "⁧"; // RIGHT-TO-LEFT ISOLATE
-const PDI = "⁩"; // POP DIRECTIONAL ISOLATE
+// Most terminals (Ghostty, the one cmux embeds) don't implement the Unicode
+// bidi algorithm — they print code points left-to-right in logical order, so
+// Hebrew comes out mirrored. We render RTL runs in *visual* order instead:
+// reverse the Hebrew text, but keep embedded digits/Latin readable (so platform
+// and train numbers don't flip).
 const HEBREW = /[֐-׿]/;
-export const rtl = (s: string): string =>
-  HEBREW.test(s) ? `${RLI}${s}${PDI}` : s;
+export const rtl = (s: string): string => {
+  if (!HEBREW.test(s)) return s;
+  return [...s].reverse().join("").replace(/[0-9A-Za-z]+/g, (m) => [...m].reverse().join(""));
+};
 
 const hhmm = (iso: string) => iso.slice(11, 16);
 
