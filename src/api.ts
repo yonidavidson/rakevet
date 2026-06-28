@@ -40,10 +40,16 @@ export interface Train {
   routeStations: RouteStation[];
 }
 
+export interface TravelMessage {
+  title: string;
+  message: string;
+}
+
 export interface Travel {
   departureTime: string;
   arrivalTime: string;
   freeSeats: number;
+  travelMessages: TravelMessage[] | null;
   trains: Train[];
 }
 

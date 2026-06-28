@@ -9,27 +9,29 @@
 //
 // <from>/<to> accept a station id or a name in English or Hebrew.
 
-import { searchTrain, type Travel } from "./api.ts";
+import { searchTrain } from "./api.ts";
 import { loadStations, searchStations, resolveStation, type StationInfo } from "./stations.ts";
-import { formatTravels } from "./format.ts";
+import { formatTravels, type Lang } from "./format.ts";
 
 interface Flags {
   positionals: string[];
   date?: string;
   time?: string;
   limit?: number;
+  lang: Lang;
   json: boolean;
   help: boolean;
 }
 
 function parseArgs(argv: string[]): Flags {
-  const f: Flags = { positionals: [], json: false, help: false };
+  const f: Flags = { positionals: [], lang: "en", json: false, help: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     switch (a) {
       case "--date": f.date = argv[++i]; break;
       case "--time": case "--hour": f.time = argv[++i]; break;
       case "-n": case "--limit": f.limit = Number(argv[++i]); break;
+      case "-l": case "--lang": f.lang = /^he|hebrew$/i.test(argv[++i] ?? "") ? "he" : "en"; break;
       case "--json": f.json = true; break;
       case "-h": case "--help": f.help = true; break;
       default: f.positionals.push(a);
@@ -55,6 +57,9 @@ Commands:
                                Search routes between two stations.
   next   <from> <to> [-n N] [--json]
                                Next departures from now (default 5).
+
+Options:
+  --lang en|he   Show station names and service messages in English or Hebrew.
   stations [query] [--json]    List or search stations (name or id, EN/HE).
   refresh                      Force-refresh the cached station list.
 
@@ -84,6 +89,7 @@ async function cmdSearch(f: Flags, next: boolean): Promise<void> {
     toStation: to.id,
     date,
     hour: time,
+    language: f.lang === "he" ? "Hebrew" : "English",
   });
 
   // The API returns a window around the requested time; show departures from it onward.
@@ -97,8 +103,10 @@ async function cmdSearch(f: Flags, next: boolean): Promise<void> {
     return;
   }
 
-  console.log(`${from.en} → ${to.en}   ${date} ${next ? "(from " + time + ")" : time}\n`);
-  console.log(formatTravels(travels, stationMap(stations), { showLoad: true, limit }));
+  const fromName = from[f.lang];
+  const toName = to[f.lang];
+  console.log(`${fromName} → ${toName}   ${date} ${next ? "(from " + time + ")" : time}\n`);
+  console.log(formatTravels(travels, stationMap(stations), { showLoad: true, limit, lang: f.lang }));
 }
 
 async function cmdStations(f: Flags): Promise<void> {

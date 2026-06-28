@@ -22,11 +22,13 @@ Or just run it in place with `node src/cli.ts …`.
 ## Usage
 
 ```bash
-rail search <from> <to> [--date YYYY-MM-DD] [--time HH:MM] [-n N] [--json]
-rail next   <from> <to> [-n N] [--json]
+rail search <from> <to> [--date YYYY-MM-DD] [--time HH:MM] [-n N] [--lang en|he] [--json]
+rail next   <from> <to> [-n N] [--lang en|he] [--json]
 rail stations [query] [--json]
 rail refresh
 ```
+
+Add `--lang he` to print station names, platforms and service messages in Hebrew.
 
 `<from>` and `<to>` accept a **station id** or a **name in English or Hebrew**.
 

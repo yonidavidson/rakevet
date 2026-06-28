@@ -3,6 +3,8 @@
 import type { Travel } from "./api.ts";
 import type { StationInfo } from "./stations.ts";
 
+export type Lang = "en" | "he";
+
 const hhmm = (iso: string) => iso.slice(11, 16);
 
 function durationMin(depIso: string, arrIso: string): number {
@@ -26,11 +28,14 @@ function loadHint(pct: number): string {
 export function formatTravels(
   travels: Travel[],
   names: Map<number, StationInfo>,
-  opts: { showLoad: boolean; limit?: number } = { showLoad: true },
+  opts: { showLoad: boolean; limit?: number; lang?: Lang } = { showLoad: true },
 ): string {
   if (travels.length === 0) return "No trains found for that route/time.";
-  const nameOf = (id: number) => names.get(id)?.en ?? `#${id}`;
+  const lang = opts.lang ?? "en";
+  const nameOf = (id: number) => names.get(id)?.[lang] ?? `#${id}`;
   const shown = opts.limit ? travels.slice(0, opts.limit) : travels;
+  const platform = lang === "he" ? "רציף" : "pl.";
+  const trainWord = lang === "he" ? "רכבת" : "train";
 
   const lines: string[] = [];
   for (const t of shown) {
@@ -50,10 +55,13 @@ export function formatTravels(
           ? `  load ${loadHint(leg.predictedPctLoad)}`
           : "";
       lines.push(
-        `    ${hhmm(leg.departureTime)} ${from} (pl. ${leg.originPlatform})` +
-          ` → ${hhmm(leg.arrivalTime)} ${to} (pl. ${leg.destPlatform})` +
-          `   train ${leg.trainNumber}${load}`,
+        `    ${hhmm(leg.departureTime)} ${from} (${platform} ${leg.originPlatform})` +
+          ` → ${hhmm(leg.arrivalTime)} ${to} (${platform} ${leg.destPlatform})` +
+          `   ${trainWord} ${leg.trainNumber}${load}`,
       );
+    }
+    for (const m of t.travelMessages ?? []) {
+      lines.push(`    ⚠ ${[m.title, m.message].filter(Boolean).join(" ").trim()}`);
     }
     lines.push("");
   }
