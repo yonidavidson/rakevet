@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100vw;height:100vh}
+  body{
+    display:flex;align-items:center;justify-content:center;
+    background:
+      radial-gradient(1100px 600px at 80% -5%, rgba(245,166,35,.20), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(76,141,255,.18), transparent 55%),
+      linear-gradient(160deg,#0a0e13,#0e141b);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;padding:30px;
+  }
+  .win{
+    width:100%;max-width:712px;background:#0d1117;border:1px solid #2b333d;border-radius:16px;
+    box-shadow:0 28px 80px rgba(0,0,0,.6);overflow:hidden;
+  }
+  .bar{background:#161b22;padding:16px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #2b333d}
+  .dot{width:14px;height:14px;border-radius:50%}
+  .r{background:#ff5f56}.y{background:#ffbd2e}.g{background:#27c93f}
+  .bar .t{margin-left:14px;color:#6e7681;font-size:15px}
+  .body{padding:30px 30px 34px;font-size:20px;line-height:1.7}
+  .p{color:#3fb950}
+  .u{color:#4c8dff}
+  .cmd{color:#e6edf3}
+  .fl{color:#f5a623}
+  .mut{color:#8b949e}
+  .hd{color:#9da7b3}
+  .rt{color:#e6edf3}
+  .ac{color:#4c8dff}
+  .ld{color:#f5a623}
+  .cur{display:inline-block;width:10px;height:20px;background:#e6edf3;vertical-align:-3px;margin-left:3px;animation:b 1s steps(1) infinite}
+  @keyframes b{50%{opacity:0}}
+  .sp{height:14px}
+</style></head><body>
+  <div class="win">
+    <div class="bar"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div><div class="t">yoni@mac · ~</div></div>
+    <div class="body">
+      <div><span class="p">➜</span> <span class="u">~</span> <span class="cmd">rakevet next "tel aviv" haifa</span></div>
+      <div class="hd">Tel Aviv - HaShalom → Haifa - Hof HaKarmel</div>
+      <div class="rt">17:18 → 18:14 &nbsp;(56m, <span class="ac">direct</span>) &nbsp;train 226 &nbsp;<span class="ld">•••</span></div>
+      <div class="rt">17:48 → 18:44 &nbsp;(56m, <span class="ac">direct</span>) &nbsp;train 230 &nbsp;<span class="ld">••</span></div>
+      <div class="sp"></div>
+      <div><span class="p">➜</span> <span class="u">~</span> <span class="cmd">rakevet stations haifa</span></div>
+      <div class="hd">&nbsp;1300 &nbsp;Haifa - Hof HaKarmel</div>
+      <div class="hd">&nbsp;2100 &nbsp;Haifa - Bat Galim</div>
+      <div class="hd">&nbsp;2200 &nbsp;Haifa Center - HaShmona</div>
+      <div class="sp"></div>
+      <div><span class="p">➜</span> <span class="u">~</span> <span class="mut"># הרכבת הבאה הביתה 🚆</span></div>
+      <div><span class="p">➜</span> <span class="u">~</span> <span class="cur"></span></div>
+    </div>
+  </div>
+</body></html>
