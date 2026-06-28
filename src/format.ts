@@ -5,6 +5,15 @@ import type { StationInfo } from "./stations.ts";
 
 export type Lang = "en" | "he";
 
+// Wrap any Hebrew run in a right-to-left isolate so it renders correctly
+// without flipping the surrounding left-to-right line structure (times,
+// arrows, platform numbers) in bidi-aware terminals.
+const RLI = "⁧"; // RIGHT-TO-LEFT ISOLATE
+const PDI = "⁩"; // POP DIRECTIONAL ISOLATE
+const HEBREW = /[֐-׿]/;
+export const rtl = (s: string): string =>
+  HEBREW.test(s) ? `${RLI}${s}${PDI}` : s;
+
 const hhmm = (iso: string) => iso.slice(11, 16);
 
 function durationMin(depIso: string, arrIso: string): number {
@@ -32,10 +41,10 @@ export function formatTravels(
 ): string {
   if (travels.length === 0) return "No trains found for that route/time.";
   const lang = opts.lang ?? "en";
-  const nameOf = (id: number) => names.get(id)?.[lang] ?? `#${id}`;
+  const nameOf = (id: number) => rtl(names.get(id)?.[lang] ?? `#${id}`);
   const shown = opts.limit ? travels.slice(0, opts.limit) : travels;
-  const platform = lang === "he" ? "רציף" : "pl.";
-  const trainWord = lang === "he" ? "רכבת" : "train";
+  const platform = lang === "he" ? rtl("רציף") : "pl.";
+  const trainWord = lang === "he" ? rtl("רכבת") : "train";
 
   const lines: string[] = [];
   for (const t of shown) {
@@ -61,7 +70,7 @@ export function formatTravels(
       );
     }
     for (const m of t.travelMessages ?? []) {
-      lines.push(`    ⚠ ${[m.title, m.message].filter(Boolean).join(" ").trim()}`);
+      lines.push(`    ⚠ ${rtl([m.title, m.message].filter(Boolean).join(" ").trim())}`);
     }
     lines.push("");
   }

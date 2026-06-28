@@ -11,7 +11,13 @@
 
 import { searchTrain } from "./api.ts";
 import { loadStations, searchStations, resolveStation, type StationInfo } from "./stations.ts";
-import { formatTravels, type Lang } from "./format.ts";
+import { formatTravels, rtl, type Lang } from "./format.ts";
+
+// Default language from the locale (LC_ALL/LC_MESSAGES/LANG), e.g. "he_IL.UTF-8".
+function localeLang(): Lang {
+  const loc = process.env.LC_ALL || process.env.LC_MESSAGES || process.env.LANG || "";
+  return /^he\b|^he[_-]/i.test(loc) ? "he" : "en";
+}
 
 interface Flags {
   positionals: string[];
@@ -24,7 +30,7 @@ interface Flags {
 }
 
 function parseArgs(argv: string[]): Flags {
-  const f: Flags = { positionals: [], lang: "en", json: false, help: false };
+  const f: Flags = { positionals: [], lang: localeLang(), json: false, help: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     switch (a) {
@@ -103,8 +109,8 @@ async function cmdSearch(f: Flags, next: boolean): Promise<void> {
     return;
   }
 
-  const fromName = from[f.lang];
-  const toName = to[f.lang];
+  const fromName = rtl(from[f.lang]);
+  const toName = rtl(to[f.lang]);
   console.log(`${fromName} → ${toName}   ${date} ${next ? "(from " + time + ")" : time}\n`);
   console.log(formatTravels(travels, stationMap(stations), { showLoad: true, limit, lang: f.lang }));
 }
