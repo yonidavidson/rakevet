@@ -81,14 +81,14 @@
     border-radius: 5px; padding: 1px 6px; font-size: .9em;
   }
 
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 680px) { .two { grid-template-columns: 1fr; } }
+  .two { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; }
   .render-card {
     background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px;
   }
   .render-card .lbl { font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 4px; }
   .render-card .who { color: var(--accent); font-weight: 600; margin-bottom: 12px; }
-  .mermaid { background: #fbfbfd; border-radius: 8px; padding: 10px; text-align: center; }
+  .mermaid { background: transparent; padding: 6px 0; text-align: center; min-height: 90px; }
+  .mermaid svg { max-width: 100%; height: auto; }
   .ascii { background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; overflow-x: auto; font-size: .82rem; line-height: 1.5; color: #d7e0ea; }
   .ascii .o { color: var(--accent); }
   .ascii .b { color: var(--accent-2); }
@@ -104,6 +104,11 @@
   .note {
     background: rgba(76,141,255,.08); border: 1px solid rgba(76,141,255,.35);
     border-radius: 10px; padding: 14px 18px;
+  }
+  figure.demo { margin: 32px 0 0; }
+  figure.demo img {
+    width: 100%; display: block; border-radius: 12px;
+    border: 1px solid var(--border); box-shadow: 0 18px 50px rgba(0,0,0,.45);
   }
   footer { text-align: center; color: var(--muted); padding: 32px 20px 56px; font-size: .9rem; }
   footer a { color: var(--muted); text-decoration: underline; }
@@ -124,6 +129,10 @@
 </header>
 
 <main class="wrap">
+
+  <figure class="demo">
+    <img src="demo.gif" alt="rakevet in a terminal: next departures and route search for Israel Railways" loading="lazy" />
+  </figure>
 
   <section id="what">
     <h2><span class="num">›</span>Just ask</h2>
@@ -231,7 +240,7 @@ flowchart LR
 
 <script type="module">
   import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-  mermaid.initialize({ startOnLoad: true, theme: "default", flowchart: { curve: "basis" } });
+  mermaid.initialize({ startOnLoad: true, theme: "dark", flowchart: { curve: "basis" } });
 </script>
 
 </body>

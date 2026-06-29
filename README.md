@@ -13,6 +13,10 @@ It's also a normal **CLI** if you just want it on your `PATH`.
 
 🌐 **Docs site:** https://yonidavidson.github.io/rakevet/
 
+![rakevet in the terminal](docs/demo.gif)
+
+…and in a diagram-capable host (Cursor, the Claude apps), the same query renders as:
+
 ```mermaid
 ---
 title: Tel Aviv - Savidor Center → Haifa - Hof HaCarmel
