@@ -1,0 +1,18 @@
+{
+  "name": "rakevet",
+  "owner": { "name": "Yoni Davidson", "url": "https://github.com/yonidavidson" },
+  "metadata": {
+    "description": "Israel Railways from your editor — a Claude Code & Cursor skill.",
+    "version": "0.2.0"
+  },
+  "plugins": [
+    {
+      "name": "rakevet",
+      "source": "./",
+      "description": "Browse Israel Railways (rail.co.il): next departures, routes, platforms and crowding. Renders a Mermaid diagram in diagram-capable hosts and an ASCII table in Claude Code.",
+      "version": "0.2.0",
+      "category": "productivity",
+      "keywords": ["israel-railways", "rakevet", "train", "rail.co.il"]
+    }
+  ]
+}

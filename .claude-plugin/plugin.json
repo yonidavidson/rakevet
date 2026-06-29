@@ -1,0 +1,10 @@
+{
+  "name": "rakevet",
+  "version": "0.2.0",
+  "description": "Browse Israel Railways (rail.co.il) — next departures, routes, platforms and crowding. A skill that drives a zero-dependency engine and renders journeys as a Mermaid diagram (Cursor / Claude apps) or an ASCII table (Claude Code).",
+  "author": { "name": "Yoni Davidson" },
+  "homepage": "https://yonidavidson.github.io/rakevet/",
+  "repository": "https://github.com/yonidavidson/rakevet",
+  "license": "MIT",
+  "keywords": ["israel-railways", "rakevet", "rail", "train", "rail.co.il", "skill", "mermaid"]
+}
